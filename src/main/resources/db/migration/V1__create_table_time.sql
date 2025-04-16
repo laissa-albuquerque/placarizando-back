@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS TB_TIME (
+    id_time UUID PRIMARY KEY,
+    nome_time VARCHAR(255) NOT NULL,
+    cor_referencia VARCHAR(100) NOT NULL
+);
