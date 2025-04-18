@@ -16,4 +16,9 @@ public class TimeServiceImpl implements TimeService {
     public void criarTime(Time time) {
         timeRepository.save(time);
     }
+
+    @Override
+    public Time buscarTimePorNome(String nomeTime) {
+        return timeRepository.findByNomeTime(nomeTime);
+    }
 }

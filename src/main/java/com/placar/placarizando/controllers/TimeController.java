@@ -1,21 +1,18 @@
 package com.placar.placarizando.controllers;
 
 import com.placar.placarizando.entities.Time;
-import com.placar.placarizando.services.impl.TimeServiceImpl;
+import com.placar.placarizando.services.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/time")
 @RequiredArgsConstructor
 public class TimeController {
 
-    private final TimeServiceImpl timeService;
+    private final TimeService timeService;
 
     @PostMapping("/criarTime")
     public ResponseEntity<Object> criarTime(@RequestBody Time time){

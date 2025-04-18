@@ -2,6 +2,7 @@ package com.placar.placarizando.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,15 +47,17 @@ public class Set implements Serializable {
     @Column(name = "terceiro_set_timeB")
     private int terceiroSetTimeB;
 
-    @Column(name = "id_timeA")
-    private Integer idTimeA;
+    @Column(name = "id_timeA", nullable = false)
+    @NotNull
+    private UUID idTimeA;
 
-    @Column(name = "id_timeB")
-    private Integer idTimeB;
+    @Column(name = "id_timeB", nullable = false)
+    @NotNull
+    private UUID idTimeB;
 
-    @Column(name = "vencedor_timeA_partida")
-    private Boolean vencedorTimeAPartida;
+    @Column(name = "vencedor_partida_timeA")
+    private Boolean vencedorPartidaTimeA;
 
-    @Column(name = "vencedor_timeB_partida")
-    private Boolean vencedorTimeBPartida;
+    @Column(name = "vencedor_partida_timeB")
+    private Boolean vencedorPartidaTimeB;
 }

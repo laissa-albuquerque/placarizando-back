@@ -1,7 +1,8 @@
 package com.placar.placarizando.services;
 
-import org.springframework.stereotype.Service;
+import com.placar.placarizando.entities.Jogador;
 
-@Service
 public interface JogadorService {
+
+    void criarJogador(Jogador jogador);
 }

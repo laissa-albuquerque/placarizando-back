@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS TB_SET (
     terceiro_set_timeB INTEGER,
     id_timeA UUID NOT NULL,
     id_timeB UUID NOT NULL,
-    vencedor_timeA_partida BOOLEAN,
-    vencedor_timeB_partida BOOLEAN
+    vencedor_partida_timeA BOOLEAN,
+    vencedor_partida_timeB BOOLEAN
 );

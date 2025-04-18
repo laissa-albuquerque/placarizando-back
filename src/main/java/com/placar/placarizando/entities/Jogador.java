@@ -34,6 +34,6 @@ public class Jogador implements Serializable {
     private Integer nota;
 
     @ManyToOne
-    @JoinColumn(name = "id_time", nullable = false)
+    @JoinColumn(name = "id_time")
     private Time time;
 }

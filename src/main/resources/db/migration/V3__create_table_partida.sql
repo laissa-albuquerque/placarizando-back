@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS TB_PARTIDA (
-    id_partida UUID PRIMARY KEY,
-    data_jogo_inicial TIMESTAMP NOT NULL,
-    id_set UUID NOT NULL
-);

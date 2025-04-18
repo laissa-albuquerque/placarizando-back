@@ -1,5 +1,6 @@
 package com.placar.placarizando.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,13 +27,13 @@ public class Partida implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_partida")
     private UUID idPartida;
 
-    @Column(name = "data_jogo_inicial")
+    @Column(name = "data_jogo_inicial", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataJogoInicial;
 
-    @Column(name = "id_set")
-    private UUID idSet;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_set", referencedColumnName = "id_set")
+    private Set set;
 }
