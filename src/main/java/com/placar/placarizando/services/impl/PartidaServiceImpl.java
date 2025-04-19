@@ -6,6 +6,8 @@ import com.placar.placarizando.services.PartidaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class PartidaServiceImpl implements PartidaService {
@@ -14,6 +16,7 @@ public class PartidaServiceImpl implements PartidaService {
 
     @Override
     public void criarPartida(Partida partida) {
+        partida.setDataJogoInicial(LocalDateTime.now());
         partidaRepository.save(partida);
     }
 }

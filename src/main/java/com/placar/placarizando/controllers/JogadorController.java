@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/jogador")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -23,5 +25,13 @@ public class JogadorController {
         jogador.setTime(timeService.buscarTimePorNome(nomeTime));
         jogadorService.criarJogador(jogador);
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogador criado com sucesso!");
+    }
+
+    @DeleteMapping("/deletarJogador/{id}")
+    public ResponseEntity<Object> deletarJogador(@PathVariable UUID id) {
+        Jogador jogador = new Jogador();
+        jogador.setIdJogador(id);
+        jogadorService.excluirJogador(jogador);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Jogador deletado com sucesso!");
     }
 }

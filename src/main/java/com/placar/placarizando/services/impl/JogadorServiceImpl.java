@@ -6,8 +6,6 @@ import com.placar.placarizando.services.JogadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class JogadorServiceImpl implements JogadorService {
@@ -17,5 +15,10 @@ public class JogadorServiceImpl implements JogadorService {
     @Override
     public void criarJogador(Jogador jogador) {
         jogadorRepository.save(jogador);
+    }
+
+    @Override
+    public void excluirJogador(Jogador jogador) {
+        jogadorRepository.delete(jogador);
     }
 }
