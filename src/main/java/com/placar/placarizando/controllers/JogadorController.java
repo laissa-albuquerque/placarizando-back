@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,11 +21,13 @@ public class JogadorController {
     private final TimeService timeService;
 
     @PostMapping("/criarJogador")
-    public ResponseEntity<Object> criarJogador(@RequestBody Jogador jogador,
-                                               @RequestParam String nomeTime) {
-        jogador.setTime(timeService.buscarTimePorNome(nomeTime));
-        jogadorService.criarJogador(jogador);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Jogador criado com sucesso!");
+    public ResponseEntity<Object> criarJogadores(@RequestBody List<Jogador> jogadores,
+                                                 @RequestParam String nomeTime) {
+        for (Jogador jogador : jogadores) {
+            jogador.setTime(timeService.buscarTimePorNome(nomeTime));
+            jogadorService.criarJogador(jogador);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
     }
 
     @DeleteMapping("/deletarJogador/{id}")
