@@ -24,7 +24,6 @@ public class JogadorController {
     public ResponseEntity<Object> criarJogadores(@RequestBody List<Jogador> jogadores,
                                                  @RequestParam String nomeTime) {
         for (Jogador jogador : jogadores) {
-            jogador.setTime(timeService.buscarTimePorNome(nomeTime));
             jogadorService.criarJogador(jogador);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");

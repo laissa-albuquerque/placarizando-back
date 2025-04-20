@@ -33,7 +33,10 @@ public class Jogador implements Serializable {
     @Column
     private Integer nota;
 
-    @ManyToOne
-    @JoinColumn(name = "id_time")
-    private Time time;
+    @Column(name = "codigo_unico", nullable = false)
+    @NotBlank
+    private String codigoUnico;
+
+    @Column(name = "id_time")
+    private UUID idTime;
 }

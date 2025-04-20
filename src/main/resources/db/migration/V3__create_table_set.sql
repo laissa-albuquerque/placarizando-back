@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS TB_SET (
     id_timeA UUID NOT NULL,
     id_timeB UUID NOT NULL,
     vencedor_partida_timeA BOOLEAN,
-    vencedor_partida_timeB BOOLEAN
+    vencedor_partida_timeB BOOLEAN,
+    codigo_campeonato VARCHAR(255) UNIQUE NOT NULL
 );

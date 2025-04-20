@@ -34,9 +34,6 @@ public class Time implements Serializable {
     @NotBlank
     private String nomeTime;
 
-    @OneToMany(mappedBy = "time", cascade = CascadeType.ALL)
-    private List<Jogador> jogadores;
-
     @Column(name = "cor_referencia")
     @NotBlank
     private String corReferencia;
