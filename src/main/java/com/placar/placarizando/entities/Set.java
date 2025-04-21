@@ -62,7 +62,7 @@ public class Set implements Serializable {
     @Column(name = "vencedor_partida_timeB")
     private Boolean vencedorPartidaTimeB;
 
-    @Column(name = "codigo_unico", nullable = false)
+    @Column(name = "codigo_campeonato", nullable = false)
     @NotBlank
-    private String codigoUnico;
+    private String codigoCampeonato;
 }

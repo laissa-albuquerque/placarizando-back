@@ -33,9 +33,9 @@ public class Jogador implements Serializable {
     @Column
     private Integer nota;
 
-    @Column(name = "codigo_unico", nullable = false)
+    @Column(name = "codigo_campeonato", nullable = false)
     @NotBlank
-    private String codigoUnico;
+    private String codigoCampeonato;
 
     @Column(name = "id_time")
     private UUID idTime;

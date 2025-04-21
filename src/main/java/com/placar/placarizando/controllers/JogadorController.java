@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/jogador")
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class JogadorController {
 
@@ -21,9 +20,9 @@ public class JogadorController {
     private final TimeService timeService;
 
     @PostMapping("/criarJogador")
-    public ResponseEntity<Object> criarJogadores(@RequestBody List<Jogador> jogadores,
-                                                 @RequestParam String nomeTime) {
+    public ResponseEntity<Object> criarJogadores(@CookieValue("torneio_token") String token, @RequestBody List<Jogador> jogadores) {
         for (Jogador jogador : jogadores) {
+            jogador.setCodigoCampeonato(token);
             jogadorService.criarJogador(jogador);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
