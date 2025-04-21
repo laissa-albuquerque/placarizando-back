@@ -7,6 +7,7 @@ import com.placar.placarizando.services.JogadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,10 +18,13 @@ public class JogadorServiceImpl implements JogadorService {
 
     @Override
     public void criarJogador(Jogador jogador) {
-        Optional<Jogador> timeExists = Optional.ofNullable(this.buscarJogadorPorNome(jogador.getNomeJogador()));
+        Optional<Jogador> jogadorExistente = jogadorRepository.findByNomeJogadorAndCodigoCampeonato(
+                jogador.getNomeJogador(), jogador.getCodigoCampeonato()
+        );
 
-        if (timeExists.isPresent()) {
-            throw new RuntimeException("Jogador com o nome " + jogador.getNomeJogador() + " já existe!");
+        if (jogadorExistente.isPresent()) {
+            throw new RuntimeException("Jogador com o nome " + jogador.getNomeJogador() +
+                    " já cadastrado!");
         }
 
         jogadorRepository.save(jogador);
@@ -29,6 +33,11 @@ public class JogadorServiceImpl implements JogadorService {
     @Override
     public Jogador buscarJogadorPorNome(String nomeJogador) {
         return jogadorRepository.findByNomeJogador(nomeJogador);
+    }
+
+    @Override
+    public List<Jogador> buscarJogadoresPeloCodigo(String codigoCampeonato) {
+        return jogadorRepository.findByCodigoCampeonato(codigoCampeonato);
     }
 
     @Override

@@ -5,10 +5,13 @@ import com.placar.placarizando.entities.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
     Jogador findByNomeJogador(String nomeTime);
-
+    Optional<Jogador> findByNomeJogadorAndCodigoCampeonato(String nomeJogador, String codigoCampeonato);
+    List<Jogador> findByCodigoCampeonato(String codigoCampeonato);
 }

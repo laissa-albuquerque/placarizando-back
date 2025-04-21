@@ -22,11 +22,23 @@ public class JogadorController {
 
     @PostMapping("/criarJogador")
     public ResponseEntity<Object> criarJogadores(@RequestBody List<Jogador> jogadores,
-                                                 @RequestParam String nomeTime) {
+                                                 @RequestParam String codigoCampeonato) {
         for (Jogador jogador : jogadores) {
+            jogador.setCodigoCampeonato(codigoCampeonato);
             jogadorService.criarJogador(jogador);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
+    }
+
+    @GetMapping("/all/{codigoCampeonato}")
+    public ResponseEntity<List<Jogador>> buscarPorCodigo(@PathVariable String codigoCampeonato) {
+        List<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigo(codigoCampeonato);
+
+        if (jogadores.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(jogadores);
     }
 
     @DeleteMapping("/deletarJogador/{id}")
