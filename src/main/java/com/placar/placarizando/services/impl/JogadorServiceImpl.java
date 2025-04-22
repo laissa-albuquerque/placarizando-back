@@ -1,13 +1,11 @@
 package com.placar.placarizando.services.impl;
 
 import com.placar.placarizando.entities.Jogador;
-import com.placar.placarizando.entities.Time;
 import com.placar.placarizando.repositories.JogadorRepository;
 import com.placar.placarizando.services.JogadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +16,8 @@ public class JogadorServiceImpl implements JogadorService {
 
     @Override
     public void criarJogador(Jogador jogador) {
-        Optional<Jogador> jogadorExistente = jogadorRepository.findByNomeJogadorAndCodigoCampeonato(
-                jogador.getNomeJogador(), jogador.getCodigoCampeonato()
+        Optional<Jogador> jogadorExistente = jogadorRepository.findByNomeJogadorAndCodigoTorneio(
+                jogador.getNomeJogador(), jogador.getCodigoTorneio()
         );
 
         if (jogadorExistente.isPresent()) {
@@ -36,8 +34,8 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public List<Jogador> buscarJogadoresPeloCodigo(String codigoCampeonato) {
-        return jogadorRepository.findByCodigoCampeonato(codigoCampeonato);
+    public Optional<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato) {
+        return jogadorRepository.findByCodigoTorneio(codigoCampeonato);
     }
 
     @Override

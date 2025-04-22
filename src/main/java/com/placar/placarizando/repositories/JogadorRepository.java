@@ -11,7 +11,8 @@ import java.util.UUID;
 
 @Repository
 public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
+
     Jogador findByNomeJogador(String nomeTime);
-    Optional<Jogador> findByNomeJogadorAndCodigoCampeonato(String nomeJogador, String codigoCampeonato);
-    List<Jogador> findByCodigoCampeonato(String codigoCampeonato);
+    Optional<Jogador> findByNomeJogadorAndCodigoTorneio(String nomeJogador, String codigoTorneio);
+    Optional<Jogador> findByCodigoTorneio(String codigoTorneio);
 }
