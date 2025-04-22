@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/time")
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class TimeController {
 
