@@ -6,6 +6,7 @@ import com.placar.placarizando.services.JogadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,8 +35,8 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public Optional<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato) {
-        return jogadorRepository.findByCodigoTorneio(codigoCampeonato);
+    public List<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato) {
+        return jogadorRepository.findAllByCodigoTorneio(codigoCampeonato);
     }
 
     @Override

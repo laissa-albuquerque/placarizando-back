@@ -31,7 +31,7 @@ public class JogadorController {
 
     @GetMapping("/buscarJogadores")
     public ResponseEntity<Object> buscarJogadoresPorCodigo(@CookieValue("torneio_token") String token) {
-        Optional<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigoCampeonato(token);
+        List<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigoCampeonato(token);
 
         if (jogadores.isEmpty()) {
             return ResponseEntity.noContent().build();
