@@ -34,9 +34,9 @@ public class Partida implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataJogoInicial;
 
-    @Column(name = "codigo_unico", nullable = false)
+    @Column(name = "codigo_campeonato", nullable = false)
     @NotBlank
-    private String codigoUnico;
+    private String codigoCampeonato;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_set", referencedColumnName = "id_set")

@@ -21,10 +21,9 @@ public class JogadorController {
     private final TimeService timeService;
 
     @PostMapping("/criarJogador")
-    public ResponseEntity<Object> criarJogadores(@RequestBody List<Jogador> jogadores,
-                                                 @RequestParam String codigoCampeonato) {
+    public ResponseEntity<Object> criarJogadores(@CookieValue("torneio_token") String token, @RequestBody List<Jogador> jogadores) {
         for (Jogador jogador : jogadores) {
-            jogador.setCodigoCampeonato(codigoCampeonato);
+            jogador.setCodigoCampeonato(token);
             jogadorService.criarJogador(jogador);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
