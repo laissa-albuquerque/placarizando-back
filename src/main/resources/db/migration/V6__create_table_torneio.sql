@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS TB_TORNEIO (
+    id_torneio UUID PRIMARY KEY,
+    codigo_torneio VARCHAR(255) NOT NULL
+);

@@ -9,34 +9,25 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Table(name = "TB_JOGADOR")
+@Table(name = "TB_TORNEIO")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Getter
 @Setter
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Jogador implements Serializable {
+public class Torneio implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_jogador")
-    private UUID idJogador;
-
-    @Column(name = "nome_jogador")
-    @NotBlank
-    private String nomeJogador;
-
-    @Column
-    private Integer nota;
+    @Column(name = "id_torneio")
+    private UUID idTorneio;
 
     @Column(name = "codigo_torneio", nullable = false)
     @NotBlank
     private String codigoTorneio;
-
-    @Column(name = "id_time")
-    private UUID idTime;
 }

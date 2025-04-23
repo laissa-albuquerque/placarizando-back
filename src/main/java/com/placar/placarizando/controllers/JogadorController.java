@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/jogador")
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class JogadorController {
 
@@ -23,21 +23,21 @@ public class JogadorController {
     @PostMapping("/criarJogador")
     public ResponseEntity<Object> criarJogadores(@CookieValue("torneio_token") String token, @RequestBody List<Jogador> jogadores) {
         for (Jogador jogador : jogadores) {
-            jogador.setCodigoCampeonato(token);
+            jogador.setCodigoTorneio(token);
             jogadorService.criarJogador(jogador);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
     }
 
-    @GetMapping("/all/{codigoCampeonato}")
-    public ResponseEntity<List<Jogador>> buscarPorCodigo(@PathVariable String codigoCampeonato) {
-        List<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigo(codigoCampeonato);
+    @GetMapping("/buscarJogadores")
+    public ResponseEntity<Object> buscarJogadoresPorCodigo(@CookieValue("torneio_token") String token) {
+        Optional<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigoCampeonato(token);
 
         if (jogadores.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(jogadores);
+        return ResponseEntity.status(HttpStatus.OK).body(jogadores);
     }
 
     @DeleteMapping("/deletarJogador/{id}")
@@ -45,6 +45,6 @@ public class JogadorController {
         Jogador jogador = new Jogador();
         jogador.setIdJogador(id);
         jogadorService.excluirJogador(jogador);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Jogador deletado com sucesso!");
+        return ResponseEntity.status(HttpStatus.OK).body("Jogador deletado com sucesso!");
     }
 }
