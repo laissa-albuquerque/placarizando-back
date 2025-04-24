@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -42,5 +43,26 @@ public class JogadorServiceImpl implements JogadorService {
     @Override
     public void excluirJogador(Jogador jogador) {
         jogadorRepository.delete(jogador);
+    }
+
+    @Override
+    public Jogador editarJogador(UUID jogadorId, Jogador jogadorAtualizado) {
+        Optional<Jogador> jogadorExistenteOpt = jogadorRepository.findById(jogadorId);
+
+        if (jogadorExistenteOpt.isEmpty()) {
+            throw new RuntimeException("Jogador com ID " + jogadorId + " não encontrado!");
+        }
+
+        Jogador jogadorExistente = jogadorExistenteOpt.get();
+
+        jogadorExistente.setNomeJogador(jogadorAtualizado.getNomeJogador());
+        jogadorExistente.setNota(jogadorAtualizado.getNota());
+
+        return jogadorRepository.save(jogadorExistente);
+    }
+
+    @Override
+    public List<Jogador> buscarJogadoresPeloTime(UUID idTime) {
+        return jogadorRepository.findAllByIdTime(idTime);
     }
 }

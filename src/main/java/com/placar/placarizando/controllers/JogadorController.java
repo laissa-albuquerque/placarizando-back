@@ -47,4 +47,14 @@ public class JogadorController {
         jogadorService.excluirJogador(jogador);
         return ResponseEntity.status(HttpStatus.OK).body("Jogador deletado com sucesso!");
     }
+
+    @PutMapping("/editarJogador/{id}")
+    public Jogador editarJogador(@PathVariable UUID id, @RequestBody Jogador jogadorAtualizado) {
+        return jogadorService.editarJogador(id, jogadorAtualizado);
+    }
+
+    @GetMapping("buscarJogadores/{id_time}")
+    public List<Jogador> buscarJogadoresPeloTime(@PathVariable UUID id_time) {
+        return jogadorService.buscarJogadoresPeloTime(id_time);
+    }
 }
