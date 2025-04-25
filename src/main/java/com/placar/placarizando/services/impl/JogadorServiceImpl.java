@@ -40,6 +40,11 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
+    public List<String> buscarJogadoresRelacionadosAoTime(String token, String nomeTime) {
+        return jogadorRepository.buscarJogadoresRelacionadosAoTime(token, nomeTime);
+    }
+
+    @Override
     public void excluirJogador(Jogador jogador) {
         jogadorRepository.delete(jogador);
     }

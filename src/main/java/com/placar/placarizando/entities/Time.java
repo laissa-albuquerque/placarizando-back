@@ -36,4 +36,8 @@ public class Time implements Serializable {
     @Column(name = "cor_referencia")
     @NotBlank
     private String corReferencia;
+
+    @Column(name = "codigo_torneio", nullable = false)
+    @NotBlank
+    private String codigoTorneio;
 }

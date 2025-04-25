@@ -40,6 +40,15 @@ public class JogadorController {
         return ResponseEntity.status(HttpStatus.OK).body(jogadores);
     }
 
+    @GetMapping("/buscarJogadoresRelacionadosAoTime")
+    public ResponseEntity<Object> buscarJogadoresRelacionadosAoTime(@CookieValue("torneio_token") String token, @RequestParam String nomeTime) {
+        List<String> jogadores = jogadorService.buscarJogadoresRelacionadosAoTime(token, nomeTime);
+
+        if(!jogadores.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(jogadores);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Esse time não tem jogadores!");
+    }
+
     @DeleteMapping("/deletarJogador/{id}")
     public ResponseEntity<Object> deletarJogador(@PathVariable UUID id) {
         Jogador jogador = new Jogador();

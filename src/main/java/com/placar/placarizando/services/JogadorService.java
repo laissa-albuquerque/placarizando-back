@@ -11,5 +11,5 @@ public interface JogadorService {
     void excluirJogador(Jogador jogador);
     Jogador buscarJogadorPorNome(String nomeTime);
     List<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato);
-
+    List<String> buscarJogadoresRelacionadosAoTime(String token, String nomeTime);
 }

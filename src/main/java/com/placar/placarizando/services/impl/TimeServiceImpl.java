@@ -7,6 +7,7 @@ import com.placar.placarizando.services.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,14 +17,15 @@ public class TimeServiceImpl implements TimeService {
     private final TimeRepository timeRepository;
 
     @Override
-    public void criarTime(Time time) {
-        Optional<Time> timeExists = Optional.ofNullable(this.buscarTimePorNome(time.getNomeTime()));
-
-        if (timeExists.isPresent()) {
-            throw new RuntimeException("Time com o nome " + time.getNomeTime() + " já existe!");
+    public void criarTime(List<Time> times) {
+        if (!times.isEmpty()) {
+            timeRepository.saveAll(times);
         }
+    }
 
-        timeRepository.save(time);
+    @Override
+    public List<Time> buscarTimesPorTorneio(String codigoTorneio) {
+        return timeRepository.findAllByCodigoTorneio(codigoTorneio);
     }
 
     @Override

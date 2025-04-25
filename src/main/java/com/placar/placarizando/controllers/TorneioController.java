@@ -29,7 +29,7 @@ public class TorneioController {
                 .secure(false)
                 .sameSite("Strict")
                 .path("/")
-                .maxAge(Duration.ofMinutes(3))
+                .maxAge(Duration.ofDays(1))
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
@@ -45,7 +45,7 @@ public class TorneioController {
                     .secure(false)
                     .sameSite("Strict")
                     .path("/")
-                    .maxAge(Duration.ofMinutes(3))
+                    .maxAge(Duration.ofDays(1))
                     .build();
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
