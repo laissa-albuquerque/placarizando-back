@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
 
-    Jogador findByNomeJogador(String nomeTime);
+    Optional<Jogador> findByNomeJogador(String nomeTime);
     Optional<Jogador> findByNomeJogadorAndCodigoTorneio(String nomeJogador, String codigoTorneio);
     List<Jogador> findAllByCodigoTorneio(String codigoTorneio);
 

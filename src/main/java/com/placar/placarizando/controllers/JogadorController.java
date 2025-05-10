@@ -51,9 +51,12 @@ public class JogadorController {
 
     @DeleteMapping("/deletarJogador/{id}")
     public ResponseEntity<Object> deletarJogador(@PathVariable UUID id) {
-        Jogador jogador = new Jogador();
-        jogador.setIdJogador(id);
-        jogadorService.excluirJogador(jogador);
-        return ResponseEntity.status(HttpStatus.OK).body("Jogador deletado com sucesso!");
+        Optional<Jogador> jogadorExiste = jogadorService.buscarJogadorPorId(id);
+        if (jogadorExiste.isPresent()) {
+            jogadorService.excluirJogador(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Jogador deletado com sucesso!");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Jogador não encontrado!");
     }
 }

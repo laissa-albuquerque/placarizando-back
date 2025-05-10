@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +31,8 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public Jogador buscarJogadorPorNome(String nomeJogador) {
-        return jogadorRepository.findByNomeJogador(nomeJogador);
+    public Optional<Jogador> buscarJogadorPorId(UUID id) {
+        return jogadorRepository.findById(id);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public void excluirJogador(Jogador jogador) {
-        jogadorRepository.delete(jogador);
+    public void excluirJogador(UUID idJogador) {
+        jogadorRepository.deleteById(idJogador);
     }
 }
