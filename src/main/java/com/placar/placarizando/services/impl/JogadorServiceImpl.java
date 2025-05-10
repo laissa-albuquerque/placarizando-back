@@ -36,13 +36,13 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public List<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato) {
+    public List<Jogador> buscarJogadoresPorCampeonato(String codigoCampeonato) {
         return jogadorRepository.findAllByCodigoTorneio(codigoCampeonato);
     }
 
     @Override
-    public List<String> buscarJogadoresRelacionadosAoTime(String token, String nomeTime) {
-        return jogadorRepository.buscarJogadoresRelacionadosAoTime(token, nomeTime);
+    public List<String> buscarJogadoresPorTime(String token, UUID idTime) {
+        return jogadorRepository.buscarJogadoresPorTime(token, idTime);
     }
 
     @Override

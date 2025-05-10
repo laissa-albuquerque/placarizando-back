@@ -11,6 +11,6 @@ public interface JogadorService {
     void criarJogador(Jogador jogador);
     void excluirJogador(UUID idJogador);
     Optional<Jogador> buscarJogadorPorId(UUID id);
-    List<Jogador> buscarJogadoresPeloCodigoCampeonato(String codigoCampeonato);
-    List<String> buscarJogadoresRelacionadosAoTime(String token, String nomeTime);
+    List<Jogador> buscarJogadoresPorCampeonato(String codigoCampeonato);
+    List<String> buscarJogadoresPorTime(String token, UUID idTime);
 }

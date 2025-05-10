@@ -3,6 +3,8 @@ package com.placar.placarizando.services;
 import com.placar.placarizando.entities.Time;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface TimeService {
 
@@ -10,4 +12,5 @@ public interface TimeService {
     void deletarTime(Time time);
     Time buscarTimePorNome(String nomeTime);
     List<Time> buscarTimesPorTorneio(String codigoTorneio);
+    Optional<Time> buscarTimePorId(UUID idTime);
 }

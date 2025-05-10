@@ -1,6 +1,7 @@
 package com.placar.placarizando.controllers;
 
 import com.placar.placarizando.entities.Jogador;
+import com.placar.placarizando.entities.Time;
 import com.placar.placarizando.services.JogadorService;
 import com.placar.placarizando.services.TimeService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +33,7 @@ public class JogadorController {
 
     @GetMapping("/buscarJogadores")
     public ResponseEntity<Object> buscarJogadoresPorCodigo(@CookieValue("torneio_token") String token) {
-        List<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigoCampeonato(token);
+        List<Jogador> jogadores = jogadorService.buscarJogadoresPorCampeonato(token);
 
         if (jogadores.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -40,13 +42,16 @@ public class JogadorController {
         return ResponseEntity.status(HttpStatus.OK).body(jogadores);
     }
 
-    @GetMapping("/buscarJogadoresRelacionadosAoTime")
-    public ResponseEntity<Object> buscarJogadoresRelacionadosAoTime(@CookieValue("torneio_token") String token, @RequestParam String nomeTime) {
-        List<String> jogadores = jogadorService.buscarJogadoresRelacionadosAoTime(token, nomeTime);
+    @GetMapping("/buscarJogadoresPorTime/{idTime}")
+    public ResponseEntity<Object> buscarJogadoresPorTime(@CookieValue("torneio_token") String token, @PathVariable UUID idTime) {
+        Optional<Time> time = timeService.buscarTimePorId(idTime);
 
-        if(!jogadores.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(jogadores);
+        if(time.isPresent()) {
+            List<String> jogadores = jogadorService.buscarJogadoresPorTime(token, idTime);
+            if(!jogadores.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(jogadores);
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Esse time não tem jogadores!");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(List.of());
     }
 
     @DeleteMapping("/deletarJogador/{id}")

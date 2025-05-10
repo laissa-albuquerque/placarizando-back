@@ -20,9 +20,9 @@ public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
     @Query(value = """
             SELECT j.nome_jogador
             FROM tb_jogador j
-            INNER JOIN tb_time t ON t.codigo_torneio = j.codigo_torneio
-            WHERE t.nome_time = :nomeTime
-            and j.codigo_torneio = :token
-            """ , nativeQuery = true)
-    List<String> buscarJogadoresRelacionadosAoTime(@Param("token") String token, @Param("nomeTime") String nomeTime);
+                INNER JOIN tb_time t ON j.id_time = t.id_time
+            WHERE j.id_time = :idTime
+                AND j.codigo_torneio = :token;
+    """, nativeQuery = true)
+    List<String> buscarJogadoresPorTime(@Param("token") String token, @Param("idTime") UUID idTime);
 }
