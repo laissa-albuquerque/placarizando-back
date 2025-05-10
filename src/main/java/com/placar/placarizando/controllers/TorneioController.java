@@ -20,11 +20,13 @@ public class TorneioController {
     private final TorneioService torneioService;
 
     @GetMapping
-    public ResponseEntity<Object> gerarCodigo(HttpServletResponse response) {
+    public ResponseEntity<Object> gerarCodigo() {
+        return ResponseEntity.status(HttpStatus.CREATED).body(torneioService.gerarCodigo());
+    }
 
-        String codigoTorneio = torneioService.gerarCodigo();
-
-        ResponseCookie cookie = ResponseCookie.from("torneio_token", codigoTorneio)
+    @PostMapping("/criarTorneio")
+    public ResponseEntity<Object> criarTorneio(@RequestBody Torneio torneio, HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("torneio_token", torneio.getCodigoTorneio())
                 .httpOnly(true)
                 .secure(false)
                 .sameSite("Strict")
@@ -34,7 +36,8 @@ public class TorneioController {
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(torneioService.gerarCodigo());
+        torneioService.salvarTorneio(torneio.getCodigoTorneio());
+        return ResponseEntity.status(HttpStatus.CREATED).body("Torneio criado!");
     }
 
     @PostMapping("/buscarTorneio")

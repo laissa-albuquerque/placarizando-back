@@ -7,5 +7,6 @@ import java.util.Optional;
 public interface TorneioService {
 
     String gerarCodigo();
+    void salvarTorneio(String codigoTorneio);
     Optional<Torneio> buscarTorneio(String codigoTorneio);
 }

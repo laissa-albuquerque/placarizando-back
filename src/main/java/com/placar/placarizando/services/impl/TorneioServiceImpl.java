@@ -29,15 +29,17 @@ public class TorneioServiceImpl implements TorneioService {
             codigoGerado = "placar-" + gerador.generate(6);
         } while (validarSeCodigoExiste(codigoGerado));
 
-        torneioRepository.save(toTorneio(codigoGerado));
         return codigoGerado;
+    }
+
+    public void salvarTorneio(String codigoTorneio) {
+        torneioRepository.save(toTorneio(codigoTorneio));
     }
 
     @Override
     public Optional<Torneio> buscarTorneio(String codigoTorneio) {
         return torneioRepository.findByCodigoTorneio(codigoTorneio);
     }
-
 
     private Boolean validarSeCodigoExiste(String codigoGerado) {
         return torneioRepository.findByCodigoTorneio(codigoGerado).isPresent();

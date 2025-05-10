@@ -30,7 +30,7 @@ public class TimeController {
         List<Time> timesCadastrados = timeService.buscarTimesPorTorneio(token);
         if(!timesCadastrados.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(timesCadastrados);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Ainda não existem times cadastrados para esse torneio!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ainda não existem times cadastrados para esse torneio!");
     }
 
     @DeleteMapping("/deletarTime/{id}")
