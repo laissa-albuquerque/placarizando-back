@@ -1,5 +1,6 @@
 package com.placar.placarizando.controllers;
 
+import com.placar.placarizando.dto.JogadorComNotaDTO;
 import com.placar.placarizando.entities.Jogador;
 import com.placar.placarizando.services.JogadorService;
 import com.placar.placarizando.services.TimeService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,6 +31,16 @@ public class JogadorController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Jogadores salvos com sucesso!");
     }
 
+    @PutMapping("/alterarJogador/{id}")
+    public ResponseEntity<?> editarJogador(@PathVariable UUID id, @RequestBody Jogador jogador) {
+        try {
+            jogadorService.editarJogador(id, jogador);
+            return ResponseEntity.ok("Jogador atualizado com sucesso.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/buscarJogadores")
     public ResponseEntity<Object> buscarJogadoresPorCodigo(@CookieValue("torneio_token") String token) {
         List<Jogador> jogadores = jogadorService.buscarJogadoresPeloCodigoCampeonato(token);
@@ -42,11 +54,12 @@ public class JogadorController {
 
     @GetMapping("/buscarJogadoresRelacionadosAoTime")
     public ResponseEntity<Object> buscarJogadoresRelacionadosAoTime(@CookieValue("torneio_token") String token, @RequestParam String nomeTime) {
-        List<String> jogadores = jogadorService.buscarJogadoresRelacionadosAoTime(token, nomeTime);
+        List<JogadorComNotaDTO> jogadores = jogadorService.buscarJogadoresRelacionadosAoTime(token, nomeTime);
 
-        if(!jogadores.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(jogadores);
+        if (!jogadores.isEmpty())
+            return ResponseEntity.ok(jogadores);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Esse time não tem jogadores!");
+        return ResponseEntity.ok(Map.of("mensagem", "Esse time não tem jogadores!"));
     }
 
     @DeleteMapping("/deletarJogador/{id}")
