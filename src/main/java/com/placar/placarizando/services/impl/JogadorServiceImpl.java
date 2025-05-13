@@ -1,5 +1,6 @@
 package com.placar.placarizando.services.impl;
 
+import com.placar.placarizando.dto.JogadorComNotaDTO;
 import com.placar.placarizando.entities.Jogador;
 import com.placar.placarizando.repositories.JogadorRepository;
 import com.placar.placarizando.services.JogadorService;
@@ -28,6 +29,25 @@ public class JogadorServiceImpl implements JogadorService {
         }
 
         jogadorRepository.save(jogador);
+    }
+
+    @Override
+    public void editarJogador(UUID id, Jogador jogadorAtualizado) {
+        Jogador jogadorExistente = jogadorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Jogador com ID " + id + " não encontrado."));
+
+        Optional<Jogador> jogadorDuplicado = jogadorRepository.findByNomeJogadorAndCodigoTorneio(
+                jogadorAtualizado.getNomeJogador(), jogadorAtualizado.getCodigoTorneio()
+        );
+
+        if (jogadorDuplicado.isPresent() && !jogadorDuplicado.get().getIdJogador().equals(id)) {
+            throw new RuntimeException("Já existe um jogador com esse nome neste torneio.");
+        }
+
+        jogadorExistente.setNomeJogador(jogadorAtualizado.getNomeJogador());
+        jogadorExistente.setNota(jogadorAtualizado.getNota());
+
+        jogadorRepository.save(jogadorExistente);
     }
 
     @Override
