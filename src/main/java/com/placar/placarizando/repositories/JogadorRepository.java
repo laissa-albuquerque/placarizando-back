@@ -1,6 +1,7 @@
 package com.placar.placarizando.repositories;
 
 import com.placar.placarizando.entities.Jogador;
+import com.placar.placarizando.entities.dto.JogadorDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,14 +16,15 @@ public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
 
     Jogador findByNomeJogador(String nomeTime);
     Optional<Jogador> findByNomeJogadorAndCodigoTorneio(String nomeJogador, String codigoTorneio);
-    List<Jogador> findAllByCodigoTorneio(String codigoTorneio);
+    List<JogadorDTO> findAllByCodigoTorneio(String codigoTorneio);
 
     @Query(value = """
-            SELECT j.nome_jogador
+            SELECT j.id_jogador, j.nome_jogador, j.nota
             FROM tb_jogador j
                 INNER JOIN tb_time t ON j.id_time = t.id_time
             WHERE j.id_time = :idTime
                 AND j.codigo_torneio = :token;
     """, nativeQuery = true)
-    List<String> buscarJogadoresPorTime(@Param("token") String token, @Param("idTime") UUID idTime);
+    List<JogadorDTO> buscarJogadoresPorTime(@Param("token") String token, @Param("idTime") UUID idTime);
+
 }

@@ -1,7 +1,7 @@
 package com.placar.placarizando.services.impl;
 
-import com.placar.placarizando.dto.JogadorComNotaDTO;
 import com.placar.placarizando.entities.Jogador;
+import com.placar.placarizando.entities.dto.JogadorDTO;
 import com.placar.placarizando.repositories.JogadorRepository;
 import com.placar.placarizando.services.JogadorService;
 import lombok.RequiredArgsConstructor;
@@ -56,12 +56,12 @@ public class JogadorServiceImpl implements JogadorService {
     }
 
     @Override
-    public List<Jogador> buscarJogadoresPorCampeonato(String codigoCampeonato) {
+    public List<JogadorDTO> buscarJogadoresPorCampeonato(String codigoCampeonato) {
         return jogadorRepository.findAllByCodigoTorneio(codigoCampeonato);
     }
 
     @Override
-    public List<String> buscarJogadoresPorTime(String token, UUID idTime) {
+    public List<JogadorDTO> buscarJogadoresPorTime(String token, UUID idTime) {
         return jogadorRepository.buscarJogadoresPorTime(token, idTime);
     }
 
