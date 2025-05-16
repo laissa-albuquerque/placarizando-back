@@ -4,5 +4,5 @@ import com.placar.placarizando.entities.Partida;
 
 public interface PartidaService {
 
-    void criarPartida(Partida partida);
+    void criarPartida(Partida partida, String torneioToken);
 }

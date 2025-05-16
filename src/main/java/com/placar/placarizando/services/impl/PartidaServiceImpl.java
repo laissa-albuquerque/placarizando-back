@@ -15,8 +15,9 @@ public class PartidaServiceImpl implements PartidaService {
     private final PartidaRepository partidaRepository;
 
     @Override
-    public void criarPartida(Partida partida) {
+    public void criarPartida(Partida partida, String torneioToken) {
         partida.setDataJogoInicial(LocalDateTime.now());
+        partida.setCodigoTorneio(torneioToken);
         partidaRepository.save(partida);
     }
 }
