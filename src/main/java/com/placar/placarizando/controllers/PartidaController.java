@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/partida")
 @RequiredArgsConstructor
@@ -17,17 +19,18 @@ public class PartidaController {
     private final PartidaService partidaService;
     private final TimeService timeService;
 
-    @PostMapping("/criarPartida")
+    @PostMapping("/criarPartida/{idTimeA}/{idTimeB}")
     public ResponseEntity<Object> criarPartida(@RequestBody Partida partida,
-                                               @RequestParam String timeA,
-                                               @RequestParam String timeB,
-                                               @CookieValue(value = "torneio_token", required = false) String torneioToken) {
-        partida.getSet().setIdTimeA(timeService.buscarTimePorNome(timeA).getIdTime());
-        partida.getSet().setIdTimeB(timeService.buscarTimePorNome(timeB).getIdTime());
+                                               @PathVariable("idTimeA") UUID idTimeA,
+                                               @PathVariable("idTimeB") UUID idTimeB,
+                                               @CookieValue(value = "torneio_token") String torneioToken) {
+
+        UUID timeAId = timeService.buscarTimePorId(idTimeA).get().getIdTime();
+        UUID timeBId = timeService.buscarTimePorId(idTimeB).get().getIdTime();
 
         Set set = partida.getSet();
-        set.setIdTimeA(timeService.buscarTimePorNome(timeA).getIdTime());
-        set.setIdTimeB(timeService.buscarTimePorNome(timeB).getIdTime());
+        set.setIdTimeA(timeAId);
+        set.setIdTimeB(timeBId);
         set.setCodigoTorneio(torneioToken);
 
         partidaService.criarPartida(partida, torneioToken);
