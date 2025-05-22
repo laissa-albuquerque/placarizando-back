@@ -13,4 +13,5 @@ public interface TimeService {
     Time buscarTimePorNome(String nomeTime);
     List<Time> buscarTimesPorTorneio(String codigoTorneio);
     Optional<Time> buscarTimePorId(UUID idTime);
+    void sortearTime(String codigoTorneio);
 }

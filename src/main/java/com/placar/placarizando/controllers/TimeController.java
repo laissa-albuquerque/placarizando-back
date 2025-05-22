@@ -1,6 +1,5 @@
 package com.placar.placarizando.controllers;
 
-import com.placar.placarizando.entities.Jogador;
 import com.placar.placarizando.entities.Time;
 import com.placar.placarizando.services.TimeService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +38,12 @@ public class TimeController {
         time.setIdTime(id);
         timeService.deletarTime(time);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Time deletado com sucesso!");
+    }
+
+    @GetMapping("/sortearTimes")
+    public ResponseEntity<Object> sortearTimes(@CookieValue("torneio_token") String token) {
+        timeService.sortearTime(token);
+        return ResponseEntity.status(HttpStatus.OK).body("Times sorteados!");
     }
 
 }

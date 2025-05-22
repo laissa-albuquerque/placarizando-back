@@ -5,5 +5,5 @@ import java.util.UUID;
 public interface JogadorDTO {
     UUID getIdJogador();
     String getNomeJogador();
-    String getNota();
+    Integer getNota();
 }
